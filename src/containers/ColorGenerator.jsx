@@ -3,28 +3,31 @@ import Display from '../components/Display';
 
 export default class ColorGenerator extends Component {
     state = {
-        color: ''
+        color: '',
+        boxColorArray: [
+            '#b3f0c4',
+            '#ffef72',
+            '#ffc476',
+            '#e2d3f2',
+            '#3c37d4',
+            '#f97d81'
+        ]
     };
 
     componentDidMount() {
-        setInterval(this.randomColor, 2000);
-    };
+        const { color, boxColorArray } = this.state;
+        setInterval(() => {
+            const newColor = this.getRandomColor(boxColorArray);
+            this.setState({ color: newColor })
+        }, 2000);
+        console.log(color, 'hi');
 
-    randomColor() {
-    const boxColorArray = [
-            'b3f0c4',
-            'ffef72',
-            'ffc476',
-            'e2d3f2',
-            '3c37d4',
-            'f97d81'
-        ];
-    
-    const randomColor = Math.floor(Math.random()*boxColorArray.length);
-    
-    this.setState({ color: `${randomColor}`});
-    
     };
+    
+    getRandomColor(boxColorArray) {
+        const randomIndex = Math.floor(Math.random() * boxColorArray.length);
+        return boxColorArray[randomIndex];
+};
     
     render() {
         const { color } = this.state;
